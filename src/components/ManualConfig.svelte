@@ -2,11 +2,10 @@
 	import { settings } from '../stores/metronome';
 	import Range from '../components/Range.svelte';
 	import Icon from '@iconify/svelte';
-	import { quintOut } from 'svelte/easing';
-	import { slide } from 'svelte/transition';
 	import Button from './Button.svelte';
-	import { page } from '$app/state';
 	import { goto } from '$app/navigation';
+	import Drawer from './Drawer.svelte';
+	import Toggle from 'svelte-toggle';
 
 	let isDrawerHidden = true;
 </script>
@@ -19,27 +18,28 @@
 		<Icon icon="mdi:settings" class="text-xl inline-block" /> | Options</Button
 	>
 </div>
-{#if isDrawerHidden}{:else}
-	<div
-		transition:slide={{ duration: 200, easing: quintOut, axis: 'y' }}
-		class="w-[100vw] max-w-2xl px-10 pb-10 pt-5 rounded-tr-3xl rounded-tl-3xl bg-gradient-to-tr bg-gradient-from-gray-800 bg-gradient-to-slate-800 position-fixed bottom-0"
-	>
-		<div class="flex justify-end">
-			<button onclick={() => (isDrawerHidden = true)}>
-				<Icon class="text-4xl" icon="mdi:close" />
-			</button>
+
+<Drawer bind:isDrawerHidden>
+	<div class="mb-10 px-2">
+		<div class="text-3xl font-bold mb-8 text-center">
+			{$settings.tempo} BPM
 		</div>
-		<div class="mb-10">
-			<div class="text-3xl font-bold mb-8 text-center">
-				{$settings.tempo} BPM
-			</div>
-			<Range bind:value={$settings.tempo} step={2} max={200} />
-		</div>
-		<div>
-			<div class="text-3xl font-bold mb-8 text-center">
-				{$settings.beats} beats
-			</div>
-			<Range bind:value={$settings.beats} min={1} max={8} />
-		</div>
+		<Range bind:value={$settings.tempo} step={2} max={200} />
 	</div>
-{/if}
+	<div class="mb-10 px-2">
+		<div class="text-3xl font-bold mb-8 text-center">
+			{$settings.beats} beats
+		</div>
+		<Range bind:value={$settings.beats} min={1} max={8} />
+	</div>
+	<div class="px-2">
+		<div class="text-3xl font-bold mb-8 text-center">
+			{$settings.subdivisions} subdivision{$settings.subdivisions !== 1 ? 's' : ''}
+		</div>
+		<Range bind:value={$settings.subdivisions} min={1} max={8} />
+	</div>
+	<div class="flex justify-between">
+		<p class="text-xl font-bold px-3 py-4">Accent first sound</p>
+		<Toggle hideLabel class="scale-125 ml--16 m-auto" bind:toggled={$settings.accentFirst} />
+	</div>
+</Drawer>

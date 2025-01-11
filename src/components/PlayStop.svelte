@@ -22,24 +22,34 @@
 
 	$effect(() => {
 		let interval: number;
+		let sub = 1;
+		const beats = $settings.beats;
+		const tempo = $settings.tempo;
+		const subdivisions = $settings.subdivisions;
 		if (!isPaused && $settings.tempo !== 0) {
-			const beats = $settings.beats;
-			const tempo = $settings.tempo;
 			interval = setInterval(
 				() => {
-					if (accented < beats) {
-						accented++;
-						nonAccentedSound.play();
+					if (subdivisions === 1 || (sub % subdivisions) - 1 === 0) {
+						if (accented < beats) {
+							accented++;
+							nonAccentedSound.play();
+						} else {
+							sub = 1;
+							accented = 1;
+							$settings.accentFirst ? accentedSound.play() : nonAccentedSound.play();
+						}
 					} else {
-						accented = 1;
-						accentedSound.play();
+						nonAccentedSound.play();
 					}
+
+					sub++;
 				},
-				(60 * 1000) / tempo
+				(60 * 1000) / tempo / subdivisions
 			);
 		}
 
 		return () => {
+			sub = 1;
 			accented = 1;
 			clearInterval(interval);
 		};
@@ -58,7 +68,7 @@
 			class={`flex flex-wrap justify-center`}
 			style={`gap: ${dotGap}px;${'max-width: ' + ($settings.beats === 5 ? '' : $settings.beats === 6 ? dotGap * 2 + dotSize * 3 : dotGap * 3 + dotSize * 4) + 'px;'}`}
 		>
-			{#each getBeats() as beat, index}
+			{#each getBeats() as beat}
 				<div
 					class={`rounded-full ${beat === accented ? 'bg-sky-400' : 'bg-sky-200'}`}
 					style={`width: ${dotSize}px; height: ${dotSize}px;`}

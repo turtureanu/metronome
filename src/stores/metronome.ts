@@ -3,18 +3,22 @@ import { persisted } from 'svelte-persisted-store';
 export const settings = persisted('settings', {
 	tempo: 120,
 	beats: 4,
-	subdivision: 4,
+	subdivisions: 1,
 	accentFirst: true
 });
 
-interface SongsCollection {
-	songs: {
-		id: number;
-		name: string;
-		artist: string;
-	}[];
+export interface Song {
+	id: number;
+	title: string;
+	artist?: string;
+	tempo: number;
+	beats: number;
+	subdivisions: number;
 }
 
-export const songLibrary = persisted<SongsCollection>('songs', {
-	songs: []
+export const songLibrary = persisted<Song[]>('songs', []);
+
+export const editing = persisted('editing', {
+	id: -1,
+	isBeingEdited: false
 });

@@ -25,6 +25,7 @@
 		"prettier-plugin-svelte": "^3.2.6",
 		"svelte": "^5.0.0",
 		"svelte-check": "^4.0.0",
+		"svelte-toggle": "^4.0.1",
 		"typescript": "^5.0.0",
 		"typescript-eslint": "^8.0.0",
 		"unocss": "^0.65.4",

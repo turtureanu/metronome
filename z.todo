@@ -1,0 +1,21 @@
+[ ] Settings screen / expand options
+    [ ] Change sound
+    [x] Disable accented sound
+    [ ] Dot size
+    [ ] playing/paused text
+    [ ] Fullscreen button
+    [x] Divisions
+        [-] Find images and put them as icons
+        // use a range instead
+
+[ ] Song library
+    [x] Add new song
+        [x] Title
+        [x] Artist
+        [x] Tempo (BPM)
+        [x] Beats
+        [x] Divisions
+    [x] Edit and delete
+    [ ] Fix height
+    [ ] Sort alphabetically
+    [ ] Search functionality
