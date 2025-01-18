@@ -2,8 +2,16 @@
 	import { settings } from '../stores/metronome';
 	import { Sound } from 'svelte-sound';
 
-	import nonAccentedSoundEffect from '../assets/sounds/default/down.mp3';
-	import accentedSoundEffect from '../assets/sounds/default/up.mp3';
+	import defaultUp from '../assets/sounds/default/up.mp3';
+	import defaultDown from '../assets/sounds/default/down.mp3';
+	import drumsUp from '../assets/sounds/drums/up.mp3';
+	import drumsDown from '../assets/sounds/drums/down.mp3';
+	import hardbassUp from '../assets/sounds/hardbass/up.mp3';
+	import hardbassDown from '../assets/sounds/hardbass/down.mp3';
+	import tomUp from '../assets/sounds/tom/up.mp3';
+	import tomDown from '../assets/sounds/tom/down.mp3';
+	import woodblockUp from '../assets/sounds/woodblock/up.mp3';
+	import woodblockDown from '../assets/sounds/woodblock/down.mp3';
 
 	const getBeats = () => {
 		let arr = [];
@@ -15,12 +23,20 @@
 
 	let accented = $state(1);
 
-	const nonAccentedSound = new Sound(nonAccentedSoundEffect);
-	const accentedSound = new Sound(accentedSoundEffect);
+	const sounds = {
+		default: { up: defaultUp, down: defaultDown },
+		drums: { up: drumsUp, down: drumsDown },
+		hardbass: { up: hardbassUp, down: hardbassDown },
+		tom: { up: tomUp, down: tomDown },
+		woodblock: { up: woodblockUp, down: woodblockDown }
+	};
 
 	let isPaused = $state(true);
 
 	$effect(() => {
+		let currentSound = $state($settings.soundEffect as keyof typeof sounds);
+		const nonAccentedSound = new Sound(sounds[currentSound].down);
+		const accentedSound = new Sound(sounds[currentSound].up);
 		let interval: number;
 		let sub = 1;
 		const beats = $settings.beats;

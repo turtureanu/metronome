@@ -20,3 +20,9 @@
 	first="label"
 	rest="pip"
 />
+
+<style>
+	:root {
+		--range-handle-focus: #4090f0 !important;
+	}
+</style>

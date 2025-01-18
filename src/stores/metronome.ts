@@ -4,7 +4,8 @@ export const settings = persisted('settings', {
 	tempo: 120,
 	beats: 4,
 	subdivisions: 1,
-	accentFirst: true
+	accentFirst: true,
+	soundEffect: 'default'
 });
 
 export interface Song {
@@ -14,6 +15,8 @@ export interface Song {
 	tempo: number;
 	beats: number;
 	subdivisions: number;
+	accentFirst: boolean;
+	selected?: boolean;
 }
 
 export const songLibrary = persisted<Song[]>('songs', []);

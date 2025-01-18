@@ -14,7 +14,7 @@
 
 {#if !isDrawerHidden}
 	<div
-		class="w-[100vw] max-w-2xl px-10 pb-10 pt-5 rounded-tr-3xl rounded-tl-3xl bg-gradient-to-tr bg-gradient-from-gray-800 bg-gradient-to-slate-800 position-fixed bottom-0"
+		class="w-[100vw] max-w-2xl px-10 pb-8 pt-5 rounded-tr-3xl rounded-tl-3xl bg-gradient-to-tr bg-gradient-from-gray-800 bg-gradient-to-slate-800 position-fixed bottom-0"
 		transition:slide={{ duration: 200, easing: quintOut, axis: 'y' }}
 	>
 		<div class="flex justify-end">

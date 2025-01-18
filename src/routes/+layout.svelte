@@ -8,7 +8,7 @@
 	import '../styles/global.css';
 </script>
 
-<div class="h-full text-white bg-gradient-to-tr bg-gradient-from-dark-800 bg-gradient-to-slate-900">
+<div class="h-full text-white bg-black">
 	{#key page.url}
 		<div id="currentPage" class="h-full max-w-2xl m-auto">
 			{@render children()}
