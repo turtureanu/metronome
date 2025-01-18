@@ -1,0 +1,34 @@
+diff --git a/dist/svelte-sound.js b/dist/svelte-sound.js
+index 7f7eb48e9246e4ce611d2164dcabb94aedcca7f7..1981f07e7f0886967cfa8588c6a2a0392539df96 100644
+--- a/dist/svelte-sound.js
++++ b/dist/svelte-sound.js
+@@ -4,6 +4,9 @@ var __publicField = (obj, key, value) => {
+   __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
+   return value;
+ };
++
++const DEV = process.env.NODE_ENV === "development";
++
+ class Sound {
+   /**
+    * Creates a new SyntheticSound instance.
+@@ -21,9 +24,17 @@ class Sound {
+    * Creates the Howl instance for the sound.
+    */
+   async create() {
+-    const { Howl } = await import("./howler.core-e669a980.js").then((n) => n.h);
++    let _Howl;
++    if (DEV) {
++      const { Howl } = await import("./howler.core-e669a980.js").then((n) => n.h);
++      _Howl = Howl;
++    } else {
++      const { Howl } = await import("howler")
++      _Howl = Howl;
++    }
++
+     const { loop, volume } = this.options;
+-    const sound2 = new Howl({
++    const sound2 = new _Howl({
+       src: this.src,
+       loop: loop || false,
+       volume: volume || 1,
